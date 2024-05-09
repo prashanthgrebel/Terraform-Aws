@@ -18,3 +18,18 @@ resource "aws_iam_user" "test_user" {
   
 }
 ```
+
+# * Hide aws key in .aws/cresentials file 
+```
+provider "aws" {
+  region = "us-east-1" 
+}
+resource "aws_iam_user" "test_user" {
+  name = "pavi-test"
+  tags = {
+    Description = "test user"
+  }
+
+  
+}
+```
