@@ -91,3 +91,6 @@ resource "aws_instance" "webserver-2" {
   
 }
 ```
+# * Variables:
+* Input variable
+* Output variable
