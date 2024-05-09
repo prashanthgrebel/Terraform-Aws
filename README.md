@@ -33,3 +33,24 @@ resource "aws_iam_user" "test_user" {
   
 }
 ```
+
+
+# EC2 Instace creation
+```
+provider "aws" {
+  region = "us-east-1"
+  
+}
+
+resource "aws_instance" "webserver-1" {
+  tags = {
+    name = "webserv-1"
+  }
+  ami = "ami-07caf09b362be10b8"
+  instance_type = "t2.micro"
+  key_name = "ssh-Virginia-key"
+  
+
+  
+}
+```
