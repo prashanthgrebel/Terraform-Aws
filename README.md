@@ -35,7 +35,8 @@ resource "aws_iam_user" "test_user" {
 ```
 
 
-# EC2 Instace creation
+# EC2 
+# * EC2 Instace creation
 ```
 provider "aws" {
   region = "us-east-1"
@@ -51,6 +52,42 @@ resource "aws_instance" "webserver-1" {
   key_name = "ssh-Virginia-key"
   
 
+  
+}
+```
+# * EC2 Multi Region creation
+```
+provider "aws" {
+  alias = "us-east-1"
+  region = "us-east-1"
+  
+}
+
+provider "aws" {
+  alias = "us-east-2"
+  region = "us-east-2"
+
+}
+
+resource "aws_instance" "webserver-1" {
+  tags = {
+    name = "webserv-1"
+  }
+  ami = "ami-07caf09b362be10b8"
+  instance_type = "t2.micro"
+  key_name = "ssh-Virginia-key"
+  provider = aws.us-east-1
+  
+}
+
+resource "aws_instance" "webserver-2" {
+  tags = {
+    name = "webserv-2"
+  }
+  ami = "ami-0d77c9d87c7e619f9"
+  instance_type = "t2.micro"
+  key_name = "ssh-Virginia-key"
+  provider = aws.us-east-2
   
 }
 ```
