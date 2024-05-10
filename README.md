@@ -192,3 +192,46 @@ resource "aws_instance" "web-dev" {
   
 }
 ```
+
+# # Dynamic Variables
+* Create ```main.tf```
+
+```
+provider "aws" {
+  region = "us-east-1"
+  
+}
+
+resource "aws_instance" "web" {
+  ami = var.ami_id
+  instance_type = var.instance_type
+
+  tags = {
+    Name = var.env_name
+  }
+  
+}
+```
+* Create ```variable.tf```
+```
+variable "instance_type" {
+  
+}
+
+variable "env_name" {
+  
+}
+variable "ami_id" {
+  type = string
+  default = "t2.micro"
+  
+  
+}
+```
+* Create ```dev.tfvars```
+```
+ami_id = "ami-07caf09b362be10b8"
+instance_type = "t2.micro"
+env_name = "dev"
+```
+
