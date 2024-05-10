@@ -336,6 +336,7 @@ resource "aws_instance" "dev" {
 
 * for_each ```{ 
   we can't use list, Instead use set or map  }```
+  * Set using for_each
 
 ```
   provider "aws" {
