@@ -300,3 +300,36 @@ resource "aws_instance" "dev" {
   
 }
 ```
+
+* map using count
+```
+provider "aws" {
+  region = "us-east-1"
+  
+}
+
+variable "aws_instances" {
+  description = "creating multiple instances"
+  type = map(string)
+  default = {
+    server_1 = "web-1"
+    server_2 = "db-1"
+
+  }
+  
+}
+
+#### Fetch keys of map ####
+locals {
+  my_instances_list = keys(var.aws_instances)
+}
+resource "aws_instance" "dev" {
+  ami = "ami-0fe630eb857a6ec83"
+  instance_type = "t2.micro"
+  count = length(local.my_instances_list)
+  tags = {
+   Name = var.aws_instances[local.my_instances_list[count.index]]
+  }
+  
+}
+```
