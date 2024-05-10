@@ -336,3 +336,40 @@ resource "aws_instance" "dev" {
 
 * for_each ```{ 
   we can't use list, Instead use set or map  }```
+
+```
+  provider "aws" {
+  region = "us-east-1"
+  
+}
+
+variable "aws_instances" {
+  description = "creating multiple instances"
+  type = set(string)
+  default = ["web-1", "web-2"]
+  
+}
+
+variable "iam_users" {
+  description = "creating iam users"
+  type = set(string)
+  default = [ "user-1","user-2","user-3" ]
+  
+}
+
+resource "aws_instance" "dev" {
+  ami = "ami-0fe630eb857a6ec83"
+  instance_type = "t2.micro"
+  for_each = var.aws_instances
+  tags = {
+    Name = each.value
+  }  
+}
+
+resource "aws_iam_user" "devuser" {
+  for_each = var.iam_users
+  name = each.value
+  
+}
+
+```
