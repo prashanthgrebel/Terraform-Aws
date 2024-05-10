@@ -96,8 +96,8 @@ resource "aws_instance" "webserver-2" {
 * Output variable
 
 ```
-  # Variables Demo
-
+  # Variables Demo   [type        = string]
+ 
 
 # Define an input variable for the EC2 instance type
 variable "instance_type" {
