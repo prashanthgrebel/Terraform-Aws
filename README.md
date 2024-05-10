@@ -334,5 +334,5 @@ resource "aws_instance" "dev" {
 }
 ```
 
-* for_each
-  we can't use list, Instead use set or map
+* for_each ```{ 
+  we can't use list, Instead use set or map  }```
