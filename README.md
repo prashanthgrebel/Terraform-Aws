@@ -234,4 +234,13 @@ ami_id = "ami-07caf09b362be10b8"
 instance_type = "t2.micro"
 env_name = "dev"
 ```
+* Commands
+  ```
+  terraform init -var-file="dev.tfvars"
+  terraform plan -var-file="dev.tfvars"
+  terraform deploy -var-file="dev.tfvars"
 
+  --------- To destroy
+  terraform destroy -var-file="dev.tfvars"
+  ```
+  
