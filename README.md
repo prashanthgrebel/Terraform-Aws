@@ -95,6 +95,7 @@ resource "aws_instance" "webserver-2" {
 * Input variable
 * Output variable
 
+* 1 string variable type
 ```
   # Variables Demo   [type        = string]
  
@@ -130,6 +131,7 @@ output "public_ip" {
 }
 
 ```
+* 2 number variable type
 ```
 # Variables Demo [ type = count]
 
@@ -162,6 +164,59 @@ resource "aws_instance" "webserv" {
   ami           = var.ami_id 
   instance_type = var.instance_type
   count = var.instance_count
+  tags = {
+    Name = "webserv"
+    
+  }
+}
+
+# Define an output variable to expose the public IP address of the EC2 instance
+output "public_ip" {
+  description = "Public IP address of the EC2 instance"
+  value       = aws_instance.webserv.*.public_ip
+
+}
+```
+* 3 boolean variable type
+```
+# Variables Demo [ type = count]
+
+
+# Define an input variable for the EC2 instance type
+variable "instance_type" {
+  description = "EC2 instance type"
+  type        = string
+  default     = "t2.micro"
+}
+variable "instance_count" {
+  description = "Number of Instances"
+  type = number
+  default = 2
+  
+}
+variable "enable_public_ip" {
+  description = "Enabling public Ip of intances"
+  type = bool
+  default = false
+  
+}
+# Define an input variable for the EC2 instance AMI ID
+variable "ami_id" {
+  description = "EC2 AMI ID"
+  type        = string  # asks to provide ami id as user input
+}
+
+# Configure the AWS provider using the input variables
+provider "aws" {
+  region      = "us-east-1"
+}
+
+# Create an EC2 instance using the input variables
+resource "aws_instance" "webserv" {
+  ami           = var.ami_id 
+  instance_type = var.instance_type
+  count = var.instance_count  
+  associate_public_ip_address = var.enable_public_ip   ## Bool
   tags = {
     Name = "webserv"
     
