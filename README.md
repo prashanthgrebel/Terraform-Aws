@@ -247,6 +247,7 @@ env_name = "dev"
   # # count , loops, for_each
 
   # * Loops with count
+  *  list using count
   
 ```
 provider "aws" {
@@ -267,6 +268,34 @@ resource "aws_instance" "dev" {
   count = length(var.aws_instances)
   tags = {
     Name = "${var.aws_instances[count.index]}"
+  }
+  
+}
+```
+*  Set using count
+```
+provider "aws" {
+  region = "us-east-1"
+  
+}
+
+variable "aws_instances" {
+  description = "creating multiple instances"
+  type = set(string)
+  default = [ "webserv-1","webserv-2" ]
+  
+}
+
+#### Convert set to list ####
+locals {
+  my_instances_list = tolist(var.aws_instances)
+}
+resource "aws_instance" "dev" {
+  ami = "ami-0fe630eb857a6ec83"
+  instance_type = "t2.micro"
+  count = length(var.aws_instances)
+  tags = {
+    Name = local.my_instances_list[count.index]
   }
   
 }
