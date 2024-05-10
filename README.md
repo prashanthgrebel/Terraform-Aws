@@ -150,3 +150,45 @@ output "public_ip" {
 
 }
 ```
+* List, map, set
+```
+provider "aws" {
+  region = "us-east-1" 
+}
+
+## List variable type##
+variable "user_name" {
+  description = "IAM users"
+  type = list(string)
+  default = [ "pavi","rebel","paru" ]
+  
+}
+resource "aws_iam_user" "developers" {
+  count = length(var.user_name)
+  name = var.user_name[count.index]
+  
+  lifecycle {
+    prevent_destroy = true
+  }
+  
+
+  }
+
+  ## Map variable type##
+variable "env" {
+  description = "project env"
+  type = map(string)
+  default = {
+    "project" = "rebel",
+    "env" = "dev"
+  }
+  
+}
+
+resource "aws_instance" "web-dev" {
+  ami = "ami-07caf09b362be10b8"
+  instance_type = "t2.micro"
+  tags = var.env
+  
+}
+```
