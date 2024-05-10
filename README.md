@@ -374,3 +374,47 @@ resource "aws_iam_user" "devuser" {
 }
 
 ```
+* map using for_each
+```
+provider "aws" {
+  region = "us-east-1"
+  
+}
+
+variable "aws_instances" {
+  description = "creating multiple instances"
+  type = map(string)
+  default = {
+    server-1 = "web-1"
+    server-2 = "web-2"
+  }
+  
+}
+
+variable "iam_users" {
+  description = "creating iam users"
+  type = map(string)
+  default = {
+    user1 = "user-1"
+    user2 = "user-2"
+  }
+  
+}
+
+resource "aws_instance" "dev" {
+  ami = "ami-0fe630eb857a6ec83"
+  instance_type = "t2.micro"
+  for_each = var.aws_instances
+  tags = {
+    Name = each.value
+  }  
+}
+
+resource "aws_iam_user" "devuser" {
+  for_each = var.iam_users
+  name = each.value
+  
+  
+}
+
+```
