@@ -243,4 +243,31 @@ env_name = "dev"
   --------- To destroy
   terraform destroy -var-file="dev.tfvars"
   ```
+
+  # # count , loops, for_each
+
+  # * Loops with count
   
+```
+provider "aws" {
+  region = "us-east-1"
+  
+}
+
+variable "aws_instances" {
+  description = "creating multiple instances"
+  type = list(string)
+  default = [ "webserv-1","webserv-2" ]
+  
+
+}
+resource "aws_instance" "dev" {
+  ami = "ami-0fe630eb857a6ec83"
+  instance_type = "t2.micro"
+  count = length(var.aws_instances)
+  tags = {
+    Name = "${var.aws_instances[count.index]}"
+  }
+  
+}
+```
