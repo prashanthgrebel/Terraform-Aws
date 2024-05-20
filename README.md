@@ -1,5 +1,9 @@
 # Terraform-Aws
 
+```
+ aws ec2 describe-instances --profile=admin --region us-east-1 --query
+ "Reservations[*].Instances[*].[InstanceId,Platform]" --output table
+```
 # IAM
 # * create IAM user
 ```
