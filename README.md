@@ -4,6 +4,9 @@
  aws ec2 describe-instances --profile=admin --region us-east-1 --query
  "Reservations[*].Instances[*].[InstanceId,Platform]" --output table
 ```
+```
+aws ec2 describe-instances --query "Reservations[*].Instances[*].[InstanceId,Platform,Tags[?Key=='Name'].Value]" --output table
+```
 # IAM
 # * create IAM user
 ```
