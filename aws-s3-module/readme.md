@@ -19,7 +19,7 @@ These features of S3 bucket configurations are supported:
 
 ```hcl
 module "s3_bucket" {
-  source = "git@github.westernasset.com:bois/terraform-aws-wam-s3?ref=v1.0.0"
+  source = "
 
   bucket = "my-s3-bucket"
 
@@ -69,7 +69,7 @@ data "aws_iam_policy_document" "bucket_policy" {
 }
 
 module "log_bucket" {
-  source = "git@github.westernasset.com:bois/terraform-aws-wam-s3?ref=v1.0.0"
+  source =""
 
   bucket        = "logs-${random_pet.this.id}"
   force_destroy = true
@@ -85,7 +85,7 @@ module "log_bucket" {
 }
 
 module "s3_bucket" {
-  source = "git@github.westernasset.com:bois/terraform-aws-wam-s3?ref=v1.0.0"
+  source = ""
 
   bucket = local.bucket_name
 
